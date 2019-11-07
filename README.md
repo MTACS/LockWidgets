@@ -28,11 +28,11 @@ If you use a simulator, you need to do some aditional setup to compile:
 
 #### Compiling for iPhone
 
-- Before running `make` run the following command in terminal: `export SIMEJCT=0`
+- Before running `make` run the following command in terminal: `export SIMJECT=0`
 
 - Make sure you have [libwidgethelper](https://github.com/ConorTheDev/libwidgethelper) installed.
 
 #### Compiling for the simulator
 
-- Before running `make` run the following command in terminal: `export SIMEJCT=1`
+- Before running `make` run the following command in terminal: `export SIMJECT=1`
 - To install the tweak and preference bundle to the simulator run the following command: `./installtosim.sh`
