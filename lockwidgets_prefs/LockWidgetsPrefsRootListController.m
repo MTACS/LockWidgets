@@ -1,4 +1,4 @@
-#include "LockWidgetsPrefsRootListController.h"
+#import "LockWidgetsPrefsRootListController.h"
 #include "NSTask.h"
 
 @implementation LockWidgetsPrefsRootListController

@@ -1,4 +1,4 @@
-#include "LockWidgetsPrefsSelectListController.h"
+#import "LockWidgetsPrefsSelectListController.h"
 
 @implementation LockWidgetsPrefsSelectListController
 

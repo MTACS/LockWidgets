@@ -1,10 +1,8 @@
 #import "Tweak.h"
 
-static NSString *const kHBCBPreferencesDomain = @"me.conorthedev.lockwidgets.prefs";
-bool kEnabled = YES;
-NSString *kIdentifier = @"com.apple.BatteryCenter.BatteryWidget";
 HBPreferences *preferences;
-
+BOOL kEnabled;
+NSString *kIdentifier; // = @"com.apple.BatteryCenter.BatteryWidget";
 SBDashBoardNotificationAdjunctListViewController *controller;
 
 @interface LockWidgetsMessagingCenter : NSObject {
@@ -88,6 +86,8 @@ SBDashBoardNotificationAdjunctListViewController *controller;
 }
 
 @end
+
+%group Tweak
 
 %hook SBDashBoardNotificationAdjunctListViewController
 
@@ -237,39 +237,17 @@ SBDashBoardNotificationAdjunctListViewController *controller;
 
 %end
 
-/*void HBCBPreferencesChanged() {
-	NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:[[[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"Preferences"] stringByAppendingPathComponent:kHBCBPreferencesDomain] stringByAppendingPathExtension:@"plist"]];
-	preferences = [[HBPreferences alloc] initWithIdentifier:kHBCBPreferencesDomain];
-
-	[preferences registerDefaults:@{
-		@"kEnabled": @YES,
-		@"kIdentifier": @"com.apple.BatteryCenter.BatteryWidget"
-	}];
-
-	if(plist[@"kEnabled"]) {
-		[preferences setObject:plist[@"kEnabled"] forKey:@"kEnabled"];
-	}
-
-	if(plist[@"kIdentifier"]) {
-		[preferences setObject:plist[@"kIdentifier"] forKey:@"kIdentifier"];
-	}
-}
+%end
 
 %ctor {
-	HBCBPreferencesChanged();
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)HBCBPreferencesChanged, CFSTR("me.conorthedev.lockwidgets.prefs/ReloadPrefs"), NULL, kNilOptions);
-}*/
 
-%ctor {
-	preferences = [[HBPreferences alloc] initWithIdentifier:kHBCBPreferencesDomain];
- 	[preferences registerDefaults:@{
-		@"kEnabled": @YES,
-		@"kIdentifier": @"com.apple.BatteryCenter.BatteryWidget"
-	}];
-
+	preferences = [[HBPreferences alloc] initWithIdentifier:@"me.conorthedev.lockwidgets.prefs"];
 	[preferences registerBool:&kEnabled default:YES forKey:@"kEnabled"];
 	[preferences registerObject:&kIdentifier default:@"com.apple.BatteryCenter.BatteryWidget" forKey:@"kIdentifier"];
 
 	NSLog(@"[LockWidgets] Current Enabled State: %i", [preferences boolForKey:@"kEnabled"]);
 	NSLog(@"[LockWidgets] Current identifier: %@", [preferences objectForKey:@"kIdentifier"]);
+
+	%init(Tweak);
+
 }

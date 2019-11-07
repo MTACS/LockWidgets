@@ -6,8 +6,6 @@ export TARGET = iphone:clang:12.1.2:10.0
 export ARCHS = arm64 arm64e
 endif
 
-INSTALL_TARGET_PROCESSES = SpringBoard
-
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = LockWidgets
@@ -21,3 +19,6 @@ LockWidgets_EXTRA_FRAMEWORKS += Cephei
 include $(THEOS_MAKE_PATH)/tweak.mk
 SUBPROJECTS += lockwidgets_prefs
 include $(THEOS_MAKE_PATH)/aggregate.mk
+
+after-install::
+	install.exec "sbreload"
